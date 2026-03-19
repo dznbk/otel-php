@@ -20,7 +20,7 @@ extensions:
 service:
   extensions: [health_check]
   pipelines:
-    traces: ＃トレーサパイプライン設定
+    traces: # トレーサパイプライン設定
       receivers: [otlp]
       processors: [batch]
       exporters: [otlp/jaeger, debug]
