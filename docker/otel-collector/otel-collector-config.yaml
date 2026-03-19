@@ -1,0 +1,26 @@
+receivers: # レシーバ設定
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+processors: # プロセッサ設定
+  batch:
+
+exporters: # エクスポータ設定
+  otlp/jaeger:
+    endpoint: jaeger:4317
+    tls:
+      insecure: true
+  debug:
+    verbosity: detailed
+
+extensions:
+  health_check:
+
+service:
+  extensions: [health_check]
+  pipelines:
+    traces: ＃トレーサパイプライン設定
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp/jaeger, debug]
